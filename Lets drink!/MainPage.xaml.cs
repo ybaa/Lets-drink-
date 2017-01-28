@@ -25,6 +25,7 @@ namespace Lets_drink_
         public MainPage()
         {
             this.InitializeComponent();
+            
         }
     }
 }

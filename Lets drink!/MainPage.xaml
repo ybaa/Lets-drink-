@@ -7,7 +7,53 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF495270" Offset="0"/>
+                <GradientStop Color="#FF6A7FC7" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
 
+
+        <Pivot> 
+            <PivotItem Header="Today" >
+                <StackPanel>
+                    <StackPanel Margin="0,10,0,0" Orientation="Vertical" HorizontalAlignment="Center"> 
+                        <TextBlock Text="Let's drink!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Foreground="#FFFFE899" FontFamily="Lato"></TextBlock>
+                        <TextBlock Text="Your goal [L]:" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Lato" Foreground="White" Margin="0,30,0,0"></TextBlock>
+                        <TextBlock Text="3" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Lato" Foreground="White" Margin="0,5,0,0" FontSize="30"></TextBlock>
+                        <TextBlock Text="till now:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" FontFamily="Lato" Foreground="White" FontSize="14" ></TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="0" FontFamily="Lato" Foreground="White" FontSize="80" Margin="0,0,5,0" ></TextBlock>
+                            <TextBlock Text="L" FontFamily="Lato" Foreground="White" FontSize="80" Margin="5,0,0,0"></TextBlock>
+                        </StackPanel>
+                       
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button VerticalAlignment="Center" Width="70" Margin="5,20,5,20" Height="40" Content="250ml" Foreground="Wheat" Background="#33FDE654"/>
+                        <Button VerticalAlignment="Center" Width="70" Margin="5,20,5,20" Height="40" Content="330ml" Foreground="Wheat" Background="#33FDE654"/>
+                        <Button VerticalAlignment="Center" Width="70" Margin="5,20,5,20" Height="40" Content="400ml" Foreground="Wheat" Background="#33FDE654"/>
+                        <Button VerticalAlignment="Center" Width="70" Margin="5,20,5,20" Height="40" Content="500ml" Foreground="Wheat" Background="#33FDE654"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <ComboBox HorizontalAlignment="Center" Width="150" Margin="0,10,0,20"></ComboBox>
+
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Your current achieved goal series last" Margin="0,10,5,10" Foreground="Wheat"></TextBlock>
+                            <TextBlock Text="0" Margin="0,10,5,10" ></TextBlock>
+                            <TextBlock Text="days" Margin="0,10,5,10" Foreground="Wheat"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                
+                
+            </PivotItem>
+            <PivotItem Header="Statistics" ></PivotItem>
+            <PivotItem Header="Settings"></PivotItem>
+        </Pivot>
+        
+        
+     
     </Grid>
 </Page>
