@@ -45,11 +45,55 @@
 
 
         </PivotItem>
-        <PivotItem Header="Statistics" ></PivotItem>
-        <PivotItem Header="Settings"></PivotItem>
+        <PivotItem Header="Statistics" >
+            <StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0,0,30">
+                    <TextBlock Text="Last week" HorizontalAlignment="Center" FontFamily="Lato" FontSize="30" Foreground="Wheat" Margin="0,30,0,15"></TextBlock>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="Drunk beverages: " FontSize="20" FontFamily="Lato" Margin="0,0,10,10" ></TextBlock>
+                        <TextBlock Text="0L" FontFamily="Lato" FontSize="20" Foreground="Wheat"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="Your favourite beverage: " FontSize="20" FontFamily="Lato" Margin="0,0,10,10" ></TextBlock>
+                        <TextBlock Text="none" FontFamily="Lato" FontSize="20" Foreground="Wheat"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="Longest achieved goal series: " FontSize="20" FontFamily="Lato" Margin="0,0,10,10" ></TextBlock>
+                        <TextBlock Text="0" FontFamily="Lato" FontSize="20" Foreground="Wheat"></TextBlock>
+                        <TextBlock Text="days" FontFamily="Lato" FontSize="20" Foreground="Wheat" Margin="5,0,0,0"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0,0,30">
+                    <TextBlock Text="Last month" HorizontalAlignment="Center" FontFamily="Lato" FontSize="30" Foreground="Wheat" Margin="0,30,0,15"></TextBlock>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="Drunk beverages: " FontSize="20" FontFamily="Lato" Margin="0,0,10,10" ></TextBlock>
+                        <TextBlock Text="0L" FontFamily="Lato" FontSize="20" Foreground="Wheat"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="Your favourite beverage: " FontSize="20" FontFamily="Lato" Margin="0,0,10,10" ></TextBlock>
+                        <TextBlock Text="none" FontFamily="Lato" FontSize="20" Foreground="Wheat"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="Longest achieved goal series: " FontSize="20" FontFamily="Lato" Margin="0,0,10,10" ></TextBlock>
+                        <TextBlock Text="0" FontFamily="Lato" FontSize="20" Foreground="Wheat"></TextBlock>
+                        <TextBlock Text="days" FontFamily="Lato" FontSize="20" Foreground="Wheat" Margin="5,0,0,0"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+        </PivotItem>
+        <PivotItem Header="Settings">
+            <StackPanel>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                    <Button Content="Set your goal" Margin="0,30,0,40" HorizontalAlignment="Center" Foreground="Wheat" ></Button>
+                    <Button Content="Set amount of drink at 1st button" HorizontalAlignment="Center" Margin="0,0,0,40" Foreground="Wheat" ></Button>
+                    <Button Content="Set amount of drink at 2st button" HorizontalAlignment="Center" Margin="0,0,0,40" Foreground="Wheat"></Button>
+                    <Button Content="Set amount of drink at 3st button" HorizontalAlignment="Center" Margin="0,0,0,40" Foreground="Wheat"></Button>
+                    <Button Content="Set amount of drink at 4st button" HorizontalAlignment="Center" Margin="0,0,0,40"  Foreground="Wheat"></Button>
+                    <Button Content="Edit amount of drunk beverages till now" Margin="0,0,0,40" Foreground="Wheat"></Button>
+                </StackPanel>
+            </StackPanel>
+
+        </PivotItem>
     </Pivot>
-
-
-
-
 </Page>
