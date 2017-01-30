@@ -49,8 +49,15 @@ namespace Lets_drink_
                 }
                 else {
                     currentDrunkTextBlock.Text = "0";
+                    day.date = DateTime.Now.ToString("dd-MM-yyyy");
                 }
                 goalTextBlock.Text = day.goal.ToString();
+
+                day.currentDrunk = double.Parse(currentDrunkTextBlock.Text);
+
+                string data = JsonConvert.SerializeObject(day);
+                File.WriteAllText("Assets/day.json", data);
+
 
             }
             catch {
