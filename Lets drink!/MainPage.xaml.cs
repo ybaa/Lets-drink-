@@ -40,6 +40,7 @@ namespace Lets_drink_
                 typeOfBeverageComboBox.Items.Add("tea");
                 typeOfBeverageComboBox.Items.Add("juice");
                 typeOfBeverageComboBox.Items.Add("coffee");
+                typeOfBeverageComboBox.SelectedIndex = 0;
 
 
                 string jsonString = File.ReadAllText("Assets/day.json");                
@@ -78,7 +79,7 @@ namespace Lets_drink_
 
         private bool checkIfItIsStillTheSameDay() {
             string date = DateTime.Now.ToString("dd-MM-yyyy");
-            if (date == day.date)
+            if (date.Equals(day.date))
                 return true;
             else
                 return false;
