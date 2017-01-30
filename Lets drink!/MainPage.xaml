@@ -15,25 +15,27 @@
         </Pivot.Background>
         <PivotItem Header="Today" >
             <StackPanel>
+                
                 <StackPanel Margin="0,10,0,0" Orientation="Vertical" HorizontalAlignment="Center">
                     <TextBlock Text="Let's drink!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Foreground="#FFFFE899" FontFamily="Lato"></TextBlock>
                     <TextBlock Text="Your goal [L]:" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Lato" Foreground="White" Margin="0,30,0,0"></TextBlock>
-                    <TextBlock Text="3" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Lato" Foreground="White" Margin="0,5,0,0" FontSize="30"></TextBlock>
+                    <TextBlock x:Name="goalTextBlock" Text="3" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Lato" Foreground="White" Margin="0,5,0,0" FontSize="30"></TextBlock>
                     <TextBlock Text="till now:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" FontFamily="Lato" Foreground="White" FontSize="14" ></TextBlock>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="0" FontFamily="Lato" Foreground="White" FontSize="80" Margin="0,0,5,0" ></TextBlock>
+                        <TextBlock x:Name="currentDrunkTextBlock" Text="0" FontFamily="Lato" Foreground="White" FontSize="80" Margin="0,0,5,0" ></TextBlock>
                         <TextBlock Text="L" FontFamily="Lato" Foreground="White" FontSize="80" Margin="5,0,0,0"></TextBlock>
                     </StackPanel>
+                    
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button VerticalAlignment="Center" Width="70" Margin="5,20,5,20" Height="40" Content="250ml" Foreground="Wheat" Background="#33FDE654"/>
-                    <Button VerticalAlignment="Center" Width="70" Margin="5,20,5,20" Height="40" Content="330ml" Foreground="Wheat" Background="#33FDE654"/>
-                    <Button VerticalAlignment="Center" Width="70" Margin="5,20,5,20" Height="40" Content="400ml" Foreground="Wheat" Background="#33FDE654"/>
-                    <Button VerticalAlignment="Center" Width="70" Margin="5,20,5,20" Height="40" Content="500ml" Foreground="Wheat" Background="#33FDE654"/>
+                    <Button x:Name="firststButton" VerticalAlignment="Center" Width="70" Margin="5,20,5,20" Height="40" Content="0.25L" Foreground="Wheat" Background="#33FDE654" Click="firststButton_Click"/>
+                    <Button x:Name="secondButton" VerticalAlignment="Center" Width="70" Margin="5,20,5,20" Height="40" Content="0.33L" Foreground="Wheat" Background="#33FDE654" Click="secondButton_Click"/>
+                    <Button x:Name="thirdButton" VerticalAlignment="Center" Width="70" Margin="5,20,5,20" Height="40" Content="0.4L" Foreground="Wheat" Background="#33FDE654" Click="thirdButton_Click"/>
+                    <Button x:Name="fouthButton" VerticalAlignment="Center" Width="70" Margin="5,20,5,20" Height="40" Content="0.5L" Foreground="Wheat" Background="#33FDE654" Click="fouthButton_Click"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
-                    <ComboBox HorizontalAlignment="Center" Width="150" Margin="0,10,0,20"></ComboBox>
+                    <ComboBox x:Name="typeOfBeverageComboBox" HorizontalAlignment="Center" Width="150" Margin="0,10,0,20"></ComboBox>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                         <TextBlock Text="Your current achieved goal series's lasted" Margin="0,10,5,10" Foreground="Wheat"></TextBlock>
@@ -86,11 +88,13 @@
             <StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                     <Button Content="Set your goal" Margin="0,30,0,40" HorizontalAlignment="Center" Foreground="Wheat" ></Button>
-                    <Button Content="Set amount of drink at 1st button" HorizontalAlignment="Center" Margin="0,0,0,40" Foreground="Wheat" ></Button>
-                    <Button Content="Set amount of drink at 2st button" HorizontalAlignment="Center" Margin="0,0,0,40" Foreground="Wheat"></Button>
-                    <Button Content="Set amount of drink at 3st button" HorizontalAlignment="Center" Margin="0,0,0,40" Foreground="Wheat"></Button>
-                    <Button Content="Set amount of drink at 4st button" HorizontalAlignment="Center" Margin="0,0,0,40"  Foreground="Wheat"></Button>
-                    <Button Content="Edit amount of drunk beverages till now" Margin="0,0,0,40" Foreground="Wheat"></Button>
+                    <Button Content="Set amount of drink at 1st button" HorizontalAlignment="Center" Margin="0,0,0,30" Foreground="Wheat" ></Button>
+                    <Button Content="Set amount of drink at 2st button" HorizontalAlignment="Center" Margin="0,0,0,30" Foreground="Wheat"></Button>
+                    <Button Content="Set amount of drink at 3st button" HorizontalAlignment="Center" Margin="0,0,0,30" Foreground="Wheat"></Button>
+                    <Button Content="Set amount of drink at 4st button" HorizontalAlignment="Center" Margin="0,0,0,30"  Foreground="Wheat"></Button>
+                    <Button Content="Edit amount of drunk beverages till now" Margin="0,0,0,30" Foreground="Wheat"></Button>
+                    <Button Content="Add new kind of beverage" HorizontalAlignment="Center" Margin="0,0,0,30" Foreground="Wheat"></Button>
+                    
                 </StackPanel>
             </StackPanel>
 
