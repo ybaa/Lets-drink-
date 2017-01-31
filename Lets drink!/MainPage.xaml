@@ -89,31 +89,31 @@
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                     <Button x:Name="SetGoalButton" Content="Set your goal" Margin="0,30,0,0" HorizontalAlignment="Center" Foreground="Wheat" Click="SetGoalButton_Click" ></Button>
                     <StackPanel x:Name="SetGoalPanel" Visibility="Collapsed" Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Center">
-                        <TextBox x:Name="SetGoalTextBox" Width="90"  Height="35" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="SetGoalTextBox" Width="90"  Height="35" HorizontalAlignment="Center" ></TextBox>
                         <Button x:Name="SetGaolAcceptButton" Height="35" Content="Accept" Click="SetGaolAcceptButton_Click" ></Button>
                     </StackPanel>
 
                     <Button x:Name="setContentOfFirstButton" Content="Set amount of drink on 1st button" HorizontalAlignment="Center" Margin="0,30,0,30" Foreground="Wheat" Click="setContentOfFirstButton_Click"></Button>
                     <StackPanel x:Name="SetFirstButtonPanel" Visibility="Collapsed" Orientation="Horizontal" Margin="0,30,0,30" HorizontalAlignment="Center">
-                        <TextBox Width="90"  Height="35" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="setFirstButtonTextBox" Width="90"  Height="35" HorizontalAlignment="Center" ></TextBox>
                         <Button x:Name="SetFirstButtonAcceptButton" Height="35" Content="Accept" Click="SetFirstButtonAcceptButton_Click"></Button>
                     </StackPanel>
 
                     <Button x:Name="setContentOfSecondButton" Content="Set amount of drink on 2nd button" HorizontalAlignment="Center" Margin="0,0,0,30" Foreground="Wheat" Click="setContentOfSecondButton_Click"></Button>
                     <StackPanel x:Name="SetSecondButtonPanel" Visibility="Collapsed" Orientation="Horizontal" Margin="0,0,0,30" HorizontalAlignment="Center">
-                        <TextBox Width="90"  Height="35" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="setSecondButtonTextBox" Width="90"  Height="35" HorizontalAlignment="Center"></TextBox>
                         <Button x:Name="SetSecondButtonAcceptButton" Height="35" Content="Accept" Click="SetSecondButtonAcceptButton_Click"></Button>
                     </StackPanel>
 
                     <Button x:Name="setContentOfThirdButton" Content="Set amount of drink on 3rd button" HorizontalAlignment="Center" Margin="0,0,0,30" Foreground="Wheat" Click="setContentOfThirdButton_Click"></Button>
                     <StackPanel x:Name="SetThirdButtonPanel" Visibility="Collapsed" Orientation="Horizontal" Margin="0,0,0,30" HorizontalAlignment="Center">
-                        <TextBox Width="90"  Height="35" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="setThirdButtonTextBox" Width="90"  Height="35" HorizontalAlignment="Center"></TextBox>
                         <Button x:Name="SetThirdButtonAcceptButton" Height="35" Content="Accept" Click="SetThirdButtonAcceptButton_Click"></Button>
                     </StackPanel>
 
                     <Button x:Name="setContentOfFourthButton" Content="Set amount of drink on 4th button" HorizontalAlignment="Center" Margin="0,0,0,30" Foreground="Wheat" Click="setContentOfFourthButton_Click"></Button>
                     <StackPanel x:Name="SetFourthButtonPanel" Visibility="Collapsed" Orientation="Horizontal" Margin="0,0,0,30" HorizontalAlignment="Center">
-                        <TextBox Width="90"  Height="35" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="setFourthButtonTextBox" Width="90"  Height="35" HorizontalAlignment="Center"></TextBox>
                         <Button x:Name="SetFourthButtonAcceptButton" Height="35" Content="Accept" Click="SetFourthButtonAcceptButton_Click"></Button>
                     </StackPanel>
 

@@ -173,11 +173,16 @@ namespace Lets_drink_
 
                 SetGoalTextBox.Text = Regex.Replace(SetGoalTextBox.Text, "[^0-9.]", "");        //remove all non-numeric signs
 
+               
                 day.goal = Math.Round(double.Parse(SetGoalTextBox.Text), 2);
                 goalTextBlock.Text = day.goal.ToString();
                 sendDayToDatabase();
+
+                SetGoalTextBox.Text = "";
             }
         }
+
+
 
 
         private void setContentOfFirstButton_Click(object sender, RoutedEventArgs e) {
@@ -187,7 +192,11 @@ namespace Lets_drink_
         private void SetFirstButtonAcceptButton_Click(object sender, RoutedEventArgs e) {
             setContentOfFirstButton.Visibility = Visibility.Visible;
             SetFirstButtonPanel.Visibility = Visibility.Collapsed;
+
+            changeTextOnButtonWithCapacity(setFirstButtonTextBox, firststButton);
+
         }
+     
 
         private void setContentOfSecondButton_Click(object sender, RoutedEventArgs e) {
             setContentOfSecondButton.Visibility = Visibility.Collapsed;
@@ -197,6 +206,8 @@ namespace Lets_drink_
         private void SetSecondButtonAcceptButton_Click(object sender, RoutedEventArgs e) {
             setContentOfSecondButton.Visibility = Visibility.Visible;
             SetSecondButtonPanel.Visibility = Visibility.Collapsed;
+
+            changeTextOnButtonWithCapacity(setSecondButtonTextBox, secondButton);
         }
 
         private void setContentOfThirdButton_Click(object sender, RoutedEventArgs e) {
@@ -207,6 +218,8 @@ namespace Lets_drink_
         private void SetThirdButtonAcceptButton_Click(object sender, RoutedEventArgs e) {
             setContentOfThirdButton.Visibility = Visibility.Visible;
             SetThirdButtonPanel.Visibility = Visibility.Collapsed;
+
+            changeTextOnButtonWithCapacity(setThirdButtonTextBox, thirdButton);
         }
 
         private void setContentOfFourthButton_Click(object sender, RoutedEventArgs e) {
@@ -217,7 +230,26 @@ namespace Lets_drink_
         private void SetFourthButtonAcceptButton_Click(object sender, RoutedEventArgs e) {
             setContentOfFourthButton.Visibility = Visibility.Visible;
             SetFourthButtonPanel.Visibility = Visibility.Collapsed;
+
+            changeTextOnButtonWithCapacity(setFourthButtonTextBox, fouthButton);
         }
+
+
+        void changeTextOnButtonWithCapacity(TextBox myTextBox, Button btn) {
+            if (myTextBox.Text != null) {
+                string newContent = myTextBox.Text;
+                if (newContent.Contains(",")) {
+                    newContent = newContent.Replace(",", ".");
+                }
+
+                newContent = Regex.Replace(newContent, "[^0-9.]", "");
+                newContent += "L";
+
+                btn.Content = newContent;
+                myTextBox.Text = "";
+            }
+        }
+
 
         private void editAmountTillNowButton_Click(object sender, RoutedEventArgs e) {
             editAmountTillNowButton.Visibility = Visibility.Collapsed;
@@ -238,5 +270,7 @@ namespace Lets_drink_
             addNewBeverageButton.Visibility = Visibility.Visible;
             addNewBeveragePanel.Visibility = Visibility.Collapsed;
         }
+
+       
     }
 }
