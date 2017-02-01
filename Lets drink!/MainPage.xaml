@@ -119,7 +119,7 @@
 
                     <Button x:Name="editAmountTillNowButton" Content="Edit amount of drunk beverages till now" HorizontalAlignment="Center" Margin="0,0,0,30" Foreground="Wheat" Click="editAmountTillNowButton_Click"></Button>
                     <StackPanel x:Name="editAmountTillNowPanel" Visibility="Collapsed" Orientation="Horizontal" Margin="0,0,0,30" HorizontalAlignment="Center">
-                        <TextBox Width="90"  Height="35" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="editAmountTillNowTextBox" Width="90"  Height="35" HorizontalAlignment="Center"></TextBox>
                         <Button x:Name="editAmountTillNowAcceptButton" Height="35" Content="Accept" Click="editAmountTillNowAcceptButton_Click"></Button>
                     </StackPanel>
 

@@ -163,22 +163,42 @@ namespace Lets_drink_
         private void SetGaolAcceptButton_Click(object sender, RoutedEventArgs e) {
             SetGoalButton.Visibility = Visibility.Visible;
             SetGoalPanel.Visibility = Visibility.Collapsed;
-        
 
-            if (SetGoalTextBox.Text != null) {
 
-                if (SetGoalTextBox.Text.Contains(",")) {
-                   SetGoalTextBox.Text = SetGoalTextBox.Text.Replace(",", ".");
+            //if (SetGoalTextBox.Text != null) {
+
+            //    if (SetGoalTextBox.Text.Contains(",")) {
+            //       SetGoalTextBox.Text = SetGoalTextBox.Text.Replace(",", ".");
+            //    }
+
+            //    SetGoalTextBox.Text = Regex.Replace(SetGoalTextBox.Text, "[^0-9.]", "");        //remove all non-numeric signs
+
+
+            //    day.goal = Math.Round(double.Parse(SetGoalTextBox.Text), 2);
+            //    goalTextBlock.Text = day.goal.ToString();
+            //    sendDayToDatabase();
+
+            //    SetGoalTextBox.Text = "";
+            //}
+            changeValuesOfGoalOrCurrent(goalTextBlock, SetGoalTextBox);
+        }
+
+        void changeValuesOfGoalOrCurrent(TextBlock futureValue, TextBox typedValue) {
+
+            if (typedValue.Text != null) {
+
+                if (typedValue.Text.Contains(",")) {
+                    typedValue.Text = typedValue.Text.Replace(",", ".");
                 }
 
-                SetGoalTextBox.Text = Regex.Replace(SetGoalTextBox.Text, "[^0-9.]", "");        //remove all non-numeric signs
-
-               
-                day.goal = Math.Round(double.Parse(SetGoalTextBox.Text), 2);
-                goalTextBlock.Text = day.goal.ToString();
+                typedValue.Text = Regex.Replace(typedValue.Text, "[^0-9.]", "");        //remove all non-numeric signs
+              
+                day.goal = Math.Round(double.Parse(typedValue.Text), 2);
+                               
+                futureValue.Text = day.goal.ToString();
                 sendDayToDatabase();
 
-                SetGoalTextBox.Text = "";
+                typedValue.Text = "";
             }
         }
 
@@ -259,6 +279,8 @@ namespace Lets_drink_
         private void editAmountTillNowAcceptButton_Click(object sender, RoutedEventArgs e) {
             editAmountTillNowButton.Visibility = Visibility.Visible;
             editAmountTillNowPanel.Visibility = Visibility.Collapsed;
+
+            changeValuesOfGoalOrCurrent(currentDrunkTextBlock, editAmountTillNowTextBox);
         }
 
         private void addNewBeverageButton_Click(object sender, RoutedEventArgs e) {
