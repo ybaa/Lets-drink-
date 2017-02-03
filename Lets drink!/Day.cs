@@ -9,8 +9,7 @@ namespace Lets_drink_ {
         public  string date { get; set; }
         public  double goal { get; set; }
         public  double currentDrunk { get; set; }
-        public  string typeOfBeverage { get; set; }
+        public bool goalIsAchievedToday { get; set; }
 
-        // public List<List<string>> typeOfBeverage;     //to do later
     }
 }

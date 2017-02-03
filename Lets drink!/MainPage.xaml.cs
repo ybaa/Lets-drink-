@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,12 +26,90 @@ namespace Lets_drink_
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class MainPage : Page {
-        Day day = new Day();
+         private Day day = new Day();
+         private Statistics stats = new Statistics();
+         private List<Statistics> week = new List<Statistics>();
+        
 
         public MainPage() {
             this.InitializeComponent();
+            
             setInitialValues();
 
+
+
+
+
+            // readStatistics();
+
+            //***************************************************************************
+            //week.Clear();
+            //string data = JsonConvert.SerializeObject(week);
+            //File.WriteAllText("Assets/week.json", data);
+
+            //stats.favouriteBeverage = "none";
+            //stats.currentSeries = 0;
+            //stats.totalAmount = 0;
+
+
+
+            //data = JsonConvert.SerializeObject(stats);
+            //File.WriteAllText("Assets/statistics.json", data);
+
+
+            //week.Add(stats);
+
+            //data = JsonConvert.SerializeObject(week);
+            //File.WriteAllText("Assets/week.json", data);
+            //***************************************************************************
+            showWeeklyStatistics();
+
+
+        }
+
+        
+
+        private void readStatistics() {
+            string jsonString = File.ReadAllText("Assets/statistics.json");
+            stats = JsonConvert.DeserializeObject<Statistics>(jsonString);
+            jsonString = File.ReadAllText("Assets/week.json");
+            week = JsonConvert.DeserializeObject<List<Statistics>>(jsonString);
+ 
+            //nie wiem jak dostac sie do tych warunkow, sprawdzenie daty nie dziala w tym wypadku tak jak trzeba
+            if (checkIfItIsStillTheSameDay()==0) {
+               // titleTextBlock.Text = "ten sam";
+            }
+            else {
+                if (week.Count < 7) {
+                    week.Add(stats);
+                   // titleTextBlock.Text = "mniej niz 7";
+                }
+                else {
+                    week.RemoveAt(0);
+                    week.Add(stats);
+                   // titleTextBlock.Text = "wiecej niz 7";
+                }
+                sendStatisticsToDatebase();
+                sendWeekToDatebase();
+            }
+            longestSeriesTextBlock.Text = stats.currentSeries.ToString();
+           // titleTextBlock.Text = week.Count.ToString();
+            
+
+           
+
+        }
+
+
+        private void readAllJsons() {
+            string jsonString = File.ReadAllText("Assets/statistics.json");
+            stats = JsonConvert.DeserializeObject<Statistics>(jsonString);
+
+            jsonString = File.ReadAllText("Assets/week.json");
+            week = JsonConvert.DeserializeObject<List<Statistics>>(jsonString);
+
+            jsonString = File.ReadAllText("Assets/day.json");
+            day = JsonConvert.DeserializeObject<Day>(jsonString);
         }
 
         private void setInitialValues() {
@@ -40,22 +119,60 @@ namespace Lets_drink_
                 typeOfBeverageComboBox.Items.Add("juice");
                 typeOfBeverageComboBox.Items.Add("coffee");
                 typeOfBeverageComboBox.SelectedIndex = 0;
+                //***************************************************************************
+                //day.date = DateTime.Now.ToString("dd-MM-yyyy");
+                //sendDayToDatabase();
+                //***************************************************************************
+                readAllJsons();
 
+                stats.totalAmount = 0;
+                sendStatisticsToDatebase();
+                sendWeekToDatebase();
 
-                string jsonString = File.ReadAllText("Assets/day.json");
-                day = JsonConvert.DeserializeObject<Day>(jsonString);
-                if (checkIfItIsStillTheSameDay() == true) {
+                
+
+                if (checkIfItIsStillTheSameDay() == 0) {
                     currentDrunkTextBlock.Text = day.currentDrunk.ToString();
                 }
                 else {
+                    if(week.Count < 7) {
+                        week.Add(stats);
+                    }
+                    else {
+                        week.RemoveAt(0);
+                        week.Add(stats);
+                    }
+
+
+                        if (checkIfItIsStillTheSameDay() > 1) {
+                        stats.currentSeries = 0;
+                        stats.totalAmount = 0;
+                        for (int i = checkIfItIsStillTheSameDay(); i == 1; i--) {
+                            if (week.Count < 7) {
+                                week.Add(stats);
+                            }
+                            else {
+                                week.RemoveAt(0);
+                                week.Add(stats);
+                            }
+                        }
+
+                        stats.currentSeries = 0;
+                        sendStatisticsToDatebase();
+                        sendWeekToDatebase();
+                    }
                     currentDrunkTextBlock.Text = "0";
                     day.date = DateTime.Now.ToString("dd-MM-yyyy");
                 }
                 goalTextBlock.Text = day.goal.ToString();
 
                 day.currentDrunk = double.Parse(currentDrunkTextBlock.Text);
-
+               
                 sendDayToDatabase();
+
+                longestSeriesTextBlock.Text = stats.currentSeries.ToString();
+
+                titleTextBlock.Text = week.Count.ToString();
 
             }
             catch {
@@ -68,9 +185,53 @@ namespace Lets_drink_
             File.WriteAllText("Assets/day.json", data);
         }
 
+        private void sendStatisticsToDatebase() {
+            string data = JsonConvert.SerializeObject(stats);
+            File.WriteAllText("Assets/statistics.json", data);
+        }
+
+        private void sendWeekToDatebase() {
+            week.RemoveAt(week.Count - 1);
+            week.Add(stats);
+            string data = JsonConvert.SerializeObject(week);
+             File.WriteAllText("Assets/week.json", data);
+        }
+
+
+        private int checkIfItIsStillTheSameDay() {
+            string date = DateTime.Now.ToString("dd-MM-yyyy");
+
+            DateTime dt = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            DateTime dt2 = DateTime.ParseExact(day.date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            TimeSpan ts = dt - dt2;
+            int difference = ts.Days;
+            
+            if(difference != 0) {
+                day.goalIsAchievedToday = false;
+                sendDayToDatabase();
+            }
+            return difference;
+
+
+            //if (date.Equals(day.date))
+            //    return true;
+            //else {
+            //    day.goalIsAchievedToday = false;
+            //    sendDayToDatabase();
+            //    return false;
+            //}
+        }
+
+
         private void firststButton_Click(object sender, RoutedEventArgs e) {
             try {
                 addToCurrentAfterClickButton(1);
+
+                if (checkIfGoalIsAchieved()) {
+                    if (day.goalIsAchievedToday == false) {
+                        incrementCurrentSeries();
+                    }                     
+                }
             }
             catch {
                 throw new NotImplementedException();
@@ -79,17 +240,26 @@ namespace Lets_drink_
 
         }
 
-        private bool checkIfItIsStillTheSameDay() {
-            string date = DateTime.Now.ToString("dd-MM-yyyy");
-            if (date.Equals(day.date))
-                return true;
-            else
-                return false;
+        private void incrementCurrentSeries() {
+            stats.currentSeries++;
+            longestSeriesTextBlock.Text = stats.currentSeries.ToString();
+
+            sendStatisticsToDatebase();
+            sendWeekToDatebase();
+            day.goalIsAchievedToday = true;
+            sendDayToDatabase();
         }
 
+        
         private void secondButton_Click(object sender, RoutedEventArgs e) {
             try {
                 addToCurrentAfterClickButton(2);
+
+                if (checkIfGoalIsAchieved()) {
+                    if (day.goalIsAchievedToday == false) {
+                        incrementCurrentSeries();
+                    }
+                }
             }
             catch {
                 throw new NotImplementedException();
@@ -99,6 +269,12 @@ namespace Lets_drink_
         private void thirdButton_Click(object sender, RoutedEventArgs e) {
             try {
                 addToCurrentAfterClickButton(3);
+
+                if (checkIfGoalIsAchieved()) {
+                    if (day.goalIsAchievedToday == false) {
+                        incrementCurrentSeries();
+                    }
+                }
             }
             catch {
                 throw new NotImplementedException();
@@ -108,6 +284,12 @@ namespace Lets_drink_
         private void fouthButton_Click(object sender, RoutedEventArgs e) {
             try {
                 addToCurrentAfterClickButton(4);
+
+                if (checkIfGoalIsAchieved()) {
+                    if (day.goalIsAchievedToday == false) {
+                        incrementCurrentSeries();
+                    }
+                }
             }
             catch {
                 throw new NotImplementedException();
@@ -134,7 +316,7 @@ namespace Lets_drink_
                     break;
             }
 
-            if (checkIfItIsStillTheSameDay() == true) {
+            if (checkIfItIsStillTheSameDay() == 0) {
                 if (typeOfBeverageComboBox.SelectedItem != null) {
                     choosedButton = choosedButton.Replace("L", string.Empty);
                     //test.Text = t.ToString();
@@ -144,15 +326,30 @@ namespace Lets_drink_
                     currentDrunkTextBlock.Text = currentValue.ToString();
                     day.currentDrunk = Math.Round(double.Parse(currentDrunkTextBlock.Text), 2);
 
-                    day.typeOfBeverage = typeOfBeverageComboBox.SelectedItem.ToString();
+                    //day.typeOfBeverage = typeOfBeverageComboBox.SelectedItem.ToString();
 
                     sendDayToDatabase();
+
+                    stats.totalAmount = day.currentDrunk;
+                    sendStatisticsToDatebase();
+                    sendWeekToDatebase();
+                    showWeeklyStatistics();
+
                 }
                 else {
                 }
             }
             else {
             }
+        }
+
+        private void showWeeklyStatistics() {
+            weeklyTotalTextBlock.Text = "0";
+            double total = double.Parse(weeklyTotalTextBlock.Text);           
+            foreach (Statistics s in week) {
+                total += s.totalAmount;
+            }
+            weeklyTotalTextBlock.Text = total.ToString() + "L";
         }
 
         private void SetGoalButton_Click(object sender, RoutedEventArgs e) {
@@ -165,25 +362,11 @@ namespace Lets_drink_
             SetGoalPanel.Visibility = Visibility.Collapsed;
 
 
-            //if (SetGoalTextBox.Text != null) {
-
-            //    if (SetGoalTextBox.Text.Contains(",")) {
-            //       SetGoalTextBox.Text = SetGoalTextBox.Text.Replace(",", ".");
-            //    }
-
-            //    SetGoalTextBox.Text = Regex.Replace(SetGoalTextBox.Text, "[^0-9.]", "");        //remove all non-numeric signs
-
-
-            //    day.goal = Math.Round(double.Parse(SetGoalTextBox.Text), 2);
-            //    goalTextBlock.Text = day.goal.ToString();
-            //    sendDayToDatabase();
-
-            //    SetGoalTextBox.Text = "";
-            //}
-            changeValuesOfGoalOrCurrent(goalTextBlock, SetGoalTextBox);
+            day.goal = changeValuesOfGoalOrCurrent(goalTextBlock, SetGoalTextBox, day.goal);
+            sendDayToDatabase();
         }
 
-        void changeValuesOfGoalOrCurrent(TextBlock futureValue, TextBox typedValue) {
+        private double changeValuesOfGoalOrCurrent(TextBlock futureValue, TextBox typedValue, double variable) {
 
             if (typedValue.Text != null) {
 
@@ -193,13 +376,15 @@ namespace Lets_drink_
 
                 typedValue.Text = Regex.Replace(typedValue.Text, "[^0-9.]", "");        //remove all non-numeric signs
               
-                day.goal = Math.Round(double.Parse(typedValue.Text), 2);
-                               
-                futureValue.Text = day.goal.ToString();
-                sendDayToDatabase();
+                variable = Math.Round(double.Parse(typedValue.Text), 2);
+
+                futureValue.Text = variable.ToString();
+                //sendDayToDatabase();
 
                 typedValue.Text = "";
+
             }
+            return variable;
         }
 
 
@@ -256,7 +441,7 @@ namespace Lets_drink_
 
 
         void changeTextOnButtonWithCapacity(TextBox myTextBox, Button btn) {
-            if (myTextBox.Text != null) {
+            if (!myTextBox.Text.Equals(string.Empty)) {
                 string newContent = myTextBox.Text;
                 if (newContent.Contains(",")) {
                     newContent = newContent.Replace(",", ".");
@@ -280,7 +465,8 @@ namespace Lets_drink_
             editAmountTillNowButton.Visibility = Visibility.Visible;
             editAmountTillNowPanel.Visibility = Visibility.Collapsed;
 
-            changeValuesOfGoalOrCurrent(currentDrunkTextBlock, editAmountTillNowTextBox);
+            day.currentDrunk = changeValuesOfGoalOrCurrent(currentDrunkTextBlock, editAmountTillNowTextBox, day.currentDrunk);
+            sendDayToDatabase();
         }
 
         private void addNewBeverageButton_Click(object sender, RoutedEventArgs e) {
@@ -291,8 +477,18 @@ namespace Lets_drink_
         private void addNewBeverageAcceptButton_Click(object sender, RoutedEventArgs e) {
             addNewBeverageButton.Visibility = Visibility.Visible;
             addNewBeveragePanel.Visibility = Visibility.Collapsed;
+
+            if(AddNewBeverageTextBox.Text != null) {
+                typeOfBeverageComboBox.Items.Add(AddNewBeverageTextBox.Text);
+            }
         }
 
+        private bool checkIfGoalIsAchieved() {
+            if (day.currentDrunk >= day.goal)
+                return true;
+            else
+                return false;
+        }
        
     }
 }
